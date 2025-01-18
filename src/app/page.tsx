@@ -1,3 +1,4 @@
+import Navbar from '@/components/navbar';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,6 +10,8 @@ export default function Home() {
         <title>TravelPouch - Welcome</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className='w-full'>
+      <Navbar /></div>
 
       <main className="text-center p-4">
         <Image
