@@ -14,11 +14,11 @@ export default function creditCard({ card }: { card: any }) {
       </div>
 
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2 text-gray-700"> Rewards</div>
+        <span className="font-bold text-xl mb-2 text-gray-700"> Rewards</span>
 
         <div className="text-gray-700 text-base">
-          {card.rewards.map((reward: any) => (
-            <div>
+          {card.rewards.map((reward: any, index: number) => (
+            <div key={index}>
               <span className="text-gray-600 text-lg">
                 {reward.category}
               </span>
@@ -32,12 +32,14 @@ export default function creditCard({ card }: { card: any }) {
             </div>
           ))}
         </div>
+        <div className="mt-3">
+            <   span className="font-bold text-xl mb-2 text-gray-700"> Perks</span>
+            <span>
+                {card.perks}
+            </span>
+        </div>
       </div>
-      <div className="px-6 py-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-          Learn More
-        </button>
-      </div>
+
     </div>
   );
 }

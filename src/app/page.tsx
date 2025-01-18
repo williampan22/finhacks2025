@@ -10,8 +10,6 @@ export default function Home() {
         <title>High Card - Welcome</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className='w-full'>
-      <Navbar /></div>
 
       <main className="text-center p-4">
         <Image

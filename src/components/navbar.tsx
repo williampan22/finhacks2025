@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-const user = null; // get user info right here
 
 const registrationLinks = (
   <>
@@ -50,7 +49,7 @@ const Navbar = () => {
             Contact
           </Link>
         </li>
-        {user ? userLinks : registrationLinks}
+        {userLinks}{registrationLinks}
       </ul>
     </nav>
   );

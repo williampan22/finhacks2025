@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import OrderCard from "@/components/orderCard";
+import { fetchAllCards } from "../api/cards/route";
 
 export default function Page() {
   const [creditCards, setCreditCards] = useState([]);
@@ -19,8 +20,14 @@ export default function Page() {
   const router = useRouter();
 
   useEffect(() => {
+    
     async function fetchCards() {
-      const response = await fetch("api.")
+      try {
+        const cards = await fetchAllCards();
+        console.log(cards); // Logs all cards in the database
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
     async function checkAuth() {
       const response = await fetch("/api/auth/me");
