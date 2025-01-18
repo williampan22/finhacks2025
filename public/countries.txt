@@ -1,0 +1,10 @@
+USA,New York,Los Angeles,Chicago,Houston,Phoenix
+Japan,Tokyo,Osaka,Kyoto,Hiroshima,Fukuoka
+France,Paris,Lyon,Marseille,Nice,Bordeaux
+India,Mumbai,Delhi,Bangalore,Hyderabad,Chennai
+Germany,Berlin,Munich,Frankfurt,Hamburg,Cologne
+Australia,Sydney,Melbourne,Brisbane,Perth,Adelaide
+Canada,Toronto,Vancouver,Montreal,Calgary,Ottawa
+UK,London,Manchester,Birmingham,Leeds,Glasgow
+China,Beijing,Shanghai,Guangzhou,Shenzhen,Chengdu
+Brazil,São Paulo,Rio de Janeiro,Brasília,Salvador,Fortaleza
