@@ -5,10 +5,7 @@ interface IUser extends Document {
   lastName: string;
   email: string;
   password: string;
-  roles?: string[];
-  address?: string;
-  currentLocation?: string;
-  paymentMethod?: { [key: string]: string }[];
+  cards?: [];
 }
 
 const UserSchema = new Schema<IUser>({
@@ -16,10 +13,7 @@ const UserSchema = new Schema<IUser>({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  roles: { type: [String], default: ['requester'] },
-  address: { type: String },
-  currentLocation: { type: String },
-  paymentMethod: { type: [Schema.Types.Mixed] },
+  cards: [{ type: Schema.ObjectId, ref: "CardModel" }],
 });
 
 export default mongoose.models.User || mongoose.model<IUser>('User', UserSchema);

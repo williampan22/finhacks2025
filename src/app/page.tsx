@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       <Head>
-        <title>TravelPouch - Welcome</title>
+        <title>High Card - Welcome</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className='w-full'>
@@ -21,9 +21,9 @@ export default function Home() {
           height={120}
           className="mx-auto mb-6"
         />
-        <h1 className="text-4xl font-bold text-blue-600 mb-6">Welcome to TravelPouch</h1>
+        <h1 className="text-4xl font-bold text-blue-600 mb-6">Welcome to High Card</h1>
         <p className="text-lg text-gray-700 mb-4">
-          Connect travelers and requesters to fulfill unique shopping needs globally.
+          Where High Cards Meet High Rewards.
         </p>
 
         <div className="space-x-4">
@@ -43,7 +43,7 @@ export default function Home() {
       </main>
 
       <footer className="mt-auto py-4 text-gray-500 text-sm text-center">
-        Powered by TravelPouch &bull; Built with Next.js, Tailwind CSS, and TypeScript
+        Powered by High Card &bull; Built with Next.js, Tailwind CSS, and TypeScript
       </footer>
     </div>
   );
