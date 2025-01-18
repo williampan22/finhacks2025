@@ -2,10 +2,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter(); // Use Next.js router for navigation
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ export default function Login() {
     const data = await response.json();
     if (response.ok) {
       alert('Login successful!');
+      router.push('/home'); // Redirect to the home page upon successful login
     } else {
       alert(data.error || 'Login failed.');
     }
@@ -27,7 +30,7 @@ export default function Login() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <Head>
         <title>TravelPouch - Login</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Head>
 
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">

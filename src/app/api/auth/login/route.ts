@@ -1,32 +1,39 @@
 import { NextResponse } from 'next/server';
-import { connectToDatabase } from '@/utils/mongodb';
-import User from '@/models/User';
+import jwt from 'jsonwebtoken';
+import { serialize } from 'cookie';
 import bcrypt from 'bcrypt';
+import User from '@/models/User';
+import { connectToDatabase } from '@/utils/mongodb';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
 
   try {
-    const { db } = await connectToDatabase();
-
-    // Find the user by email
+    await connectToDatabase();
     const user = await User.findOne({ email });
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Compare the password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
-    }
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
 
-    return NextResponse.json({
-      message: 'Login successful',
-      user: { id: user._id, firstName: user.firstName, lastName: user.lastName, email: user.email },
-    });
+    const response = NextResponse.json({ message: 'Login successful' });
+    response.headers.set(
+      'Set-Cookie',
+      serialize('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 3600,
+        path: '/',
+      })
+    );
+
+    return response;
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Login failed' }, { status: 500 });
+    console.error('Error during login:', error);
+    return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
   }
 }
