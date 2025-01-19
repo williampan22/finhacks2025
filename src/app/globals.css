@@ -76,6 +76,10 @@ body {
   background: linear-gradient(135deg, #ff6b6b, #ff8787);
   transform: rotate(-10deg);
 }
+.card-1:hover {
+  background: linear-gradient(135deg, #ff6b6b, #ff8787);
+  transform: rotate(-10deg);
+}
 
 .card-2 {
   background: linear-gradient(135deg, #4caf50, #81c784);
