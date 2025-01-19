@@ -25,14 +25,11 @@ export default function ClientLayout({
         });
 
         if (!response.ok) {
-          if (response.status === 401) {
-            window.location.href = "/login"; // Redirect if unauthorized
-          }
           return;
         }
 
         const data = await response.json();
-        setLoggedIn(!!data.user);
+        setLoggedIn(true);
       } catch (error) {
         console.error("Error fetching user details:", error);
       } finally {
@@ -42,11 +39,6 @@ export default function ClientLayout({
 
     fetchUserDetails();
   }, []);
-
-  if (loading) {
-    // Optional loading state
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
 
   return (
     <>

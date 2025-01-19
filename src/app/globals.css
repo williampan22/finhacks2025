@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #171717;
-  --foreground: #f7fafc;
+  --background: #f7fafc;
+  --foreground: #1F2937;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #f7fafc;
-    --foreground: #171717;
+    --background: #1F2937;
+    --foreground: #f7fafc;
   }
 }
 
@@ -19,6 +19,74 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.credit-card {
+  position: relative;
+  width: 320px;
+  height: 200px;
+  background: linear-gradient(135deg, #6c63ff, #8f6aff);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: rotate(-10deg);
+  color: white;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.card-chip {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #f1f1f1, #d3d3d3);
+  border-radius: 5px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.card-details {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+.card-number {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.card-holder,
+.card-expiry {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.card-holder span:last-child,
+.card-expiry span:last-child {
+  font-weight: bold;
+  opacity: 1;
+}
+
+.card-1 {
+  background: linear-gradient(135deg, #ff6b6b, #ff8787);
+  transform: rotate(-10deg);
+}
+
+.card-2 {
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  transform: rotate(5deg);
+}
+
+.card-3 {
+  background: linear-gradient(135deg, #2196f3, #64b5f6);
+  transform: rotate(-5deg);
+}
+
 
 /* Lock-focus class */
 .lock-focus button {
