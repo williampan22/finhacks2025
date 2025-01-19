@@ -1,3 +1,27 @@
+## Inspiration
+
+You're in line waiting to pay, but you spaceo ut. 
+
+## What it does
+later
+
+## How we built it
+later
+
+## Challenges we ran into
+later
+
+## Accomplishments that we're proud of
+later
+
+## What we learned
+later
+
+## What's next for High Card
+later
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

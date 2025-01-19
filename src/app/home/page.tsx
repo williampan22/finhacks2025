@@ -397,6 +397,148 @@ export default function Page() {
               Add Card
             </button>
           </div>
+
+          {/* Best Card Recommendation */}
+          <div className="bg-white rounded-lg shadow-lg p-6 mt-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Card Recommendation</h2>
+            {(() => {
+              // Get existing categories from user's cards
+              const existingCategories = new Set(
+                userCards.flatMap(card => card.rewards.map(reward => reward.category))
+              );
+
+              // Find the best card recommendation
+              const findBestRecommendation = () => {
+                // First, check for completely missing categories
+                const missingCategoryRecommendation = creditCards.find(card =>
+                  card.rewards.some(reward =>
+                    !existingCategories.has(reward.category) &&
+                    reward.centsPerDollar > 0
+                  )
+                );
+
+                if (missingCategoryRecommendation) {
+                  const missingCategoryReward = missingCategoryRecommendation.rewards
+                    .find(reward =>
+                      !existingCategories.has(reward.category) &&
+                      reward.centsPerDollar > 0
+                    );
+
+                  return {
+                    card: missingCategoryRecommendation,
+                    reason: 'missing',
+                    category: missingCategoryReward?.category
+                  };
+                }
+
+                // If no missing categories, find a card with higher rewards in existing categories
+                let bestUpgradeCard = null;
+                let maxRewardImprovement = 0;
+
+                creditCards.forEach(card => {
+                  card.rewards.forEach(newReward => {
+                    const existingCardReward = userCards
+                      .flatMap(userCard => userCard.rewards)
+                      .find(r => r.category === newReward.category);
+
+                    if (existingCardReward) {
+                      const rewardImprovement = newReward.centsPerDollar - existingCardReward.centsPerDollar;
+
+                      if (rewardImprovement > maxRewardImprovement) {
+                        maxRewardImprovement = rewardImprovement;
+                        bestUpgradeCard = {
+                          card: card,
+                          category: newReward.category,
+                          currentRate: existingCardReward.centsPerDollar,
+                          newRate: newReward.centsPerDollar
+                        };
+                      }
+                    }
+                  });
+                });
+
+                return bestUpgradeCard ?
+                  {
+                    card: bestUpgradeCard.card,
+                    reason: 'upgrade',
+                    category: bestUpgradeCard.category,
+                    currentRate: bestUpgradeCard.currentRate,
+                    newRate: bestUpgradeCard.newRate
+                  } :
+                  null;
+              };
+
+              const recommendation = findBestRecommendation();
+
+              if (!recommendation) return null;
+
+              return (
+                <div className="w-full rounded-2xl overflow-hidden shadow-lg bg-white transition-all duration-500 transform hover:scale-105 hover:shadow-xl">
+                  <div className="grid grid-cols-3 items-center p-5">
+                    <img
+                      className="w-60 rounded mx-auto inline-block mr-4"
+                      src={recommendation.card.imageLink}
+                      alt={`${recommendation.card.bank} logo`}
+                    />
+                    <h5 className="col-span-2 text-3xl text-gray-700 font-semibold">
+                      {`${recommendation.card.bank} ${recommendation.card.name}`}
+                    </h5>
+                  </div>
+
+                  <div className="px-6 py-4">
+                    <div className="mb-4">
+            <span className="font-bold text-xl text-gray-700">
+              {recommendation.reason === 'missing'
+                ? 'New Category Opportunity'
+                : 'Category Upgrade'}
+            </span>
+                      <div className="mt-2 bg-blue-50 p-4 rounded-lg">
+                        {recommendation.reason === 'missing' ? (
+                          <p className="text-gray-700">
+                            You don't have a card for <span className="font-semibold">{recommendation.category}</span> yet.
+                            This card offers {recommendation.card.rewards.find(r => r.category === recommendation.category)?.centsPerDollar.toFixed(1)}% cashback.
+                          </p>
+                        ) : (
+                          <p className="text-gray-700">
+                            Upgrade your <span className="font-semibold">{recommendation.category}</span> rewards:
+                            <br />
+                            Current card: {recommendation.currentRate.toFixed(1)}% cashback
+                            <br />
+                            New card: {recommendation.newRate.toFixed(1)}% cashback
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <span className="font-bold text-xl text-gray-700">Top Reward Categories</span>
+                      <div className="space-y-3 mt-2">
+                        {recommendation.card.rewards
+                          .sort((a, b) => b.centsPerDollar - a.centsPerDollar)
+                          .slice(0, 3)
+                          .map((reward, index) => (
+                            <div key={index} className="flex justify-between items-center text-gray-700">
+                              <span className="text-lg text-gray-600">{reward.category}</span>
+                              <div className="ml-5 flex gap-4">
+                                <span className="text-gray-400 text-lg">+ {reward.pointsPerDollar} Pts</span>
+                                <span className="text-gray-400 text-lg">+ {reward.centsPerDollar}% Cashback</span>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="text-lg text-gray-700">
+                        <span className="font-bold">Annual Fee:</span> ${recommendation.card.annualFee}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+
         </div>
       )}
     </div>
