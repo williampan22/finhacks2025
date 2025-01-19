@@ -6,10 +6,6 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <Head>
-        <title>High Card - Welcome</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
       {/* Grid container with two columns */}
       <div className="grid grid-cols-2 min-h-screen w-full relative">
@@ -71,7 +67,7 @@ export default function Home() {
             <img
               src="/logo.png"
               alt="TravelPouch Logo"
-              className="mx-auto mb-6 w-56 card-4 transition-all ease-in ease-out duration-500"
+              className="wiggle-on-load mx-auto mb-6 w-56 card-4 transition-all ease-in ease-out duration-500"
             />
             <h1 className="text-4xl font-bold text-gray-600 mb-2">Welcome to High Card</h1>
             <p className="text-lg text-gray-700 mb-6">

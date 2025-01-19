@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import OrderCard from "@/components/orderCard";
 import Loading from "@/components/loading";
+import { FaCrown } from "react-icons/fa6";
 
 interface User {
   _id: string;
@@ -400,7 +401,8 @@ export default function Page() {
 
           {/* Best Card Recommendation */}
           <div className="bg-white rounded-lg shadow-lg p-6 mt-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Card Recommendation</h2>
+            <FaCrown className="text-yellow-500 text-4xl -rotate-[10deg]" />
+            <h2 className="ml-5 text-2xl font-bold text-gray-800 mb-4">Card Recommendation</h2>
             {(() => {
               // Get existing categories from user's cards
               const existingCategories = new Set(
@@ -432,7 +434,7 @@ export default function Page() {
                 }
 
                 // If no missing categories, find a card with higher rewards in existing categories
-                let bestUpgradeCard = null;
+                let bestUpgradeCard: any = null;
                 let maxRewardImprovement = 0;
 
                 creditCards.forEach(card => {
@@ -496,7 +498,7 @@ export default function Page() {
                         {recommendation.reason === 'missing' ? (
                           <p className="text-gray-700">
                             You don't have a card for <span className="font-semibold">{recommendation.category}</span> yet.
-                            This card offers {recommendation.card.rewards.find(r => r.category === recommendation.category)?.centsPerDollar.toFixed(1)}% cashback.
+                            This card offers {recommendation.card.rewards.find((r: { category: any; }) => r.category === recommendation.category)?.centsPerDollar.toFixed(1)}% cashback.
                           </p>
                         ) : (
                           <p className="text-gray-700">
@@ -514,9 +516,9 @@ export default function Page() {
                       <span className="font-bold text-xl text-gray-700">Top Reward Categories</span>
                       <div className="space-y-3 mt-2">
                         {recommendation.card.rewards
-                          .sort((a, b) => b.centsPerDollar - a.centsPerDollar)
+                          .sort((a: any, b: any) => b.centsPerDollar - a.centsPerDollar)
                           .slice(0, 3)
-                          .map((reward, index) => (
+                          .map((reward: any, index: number) => (
                             <div key={index} className="flex justify-between items-center text-gray-700">
                               <span className="text-lg text-gray-600">{reward.category}</span>
                               <div className="ml-5 flex gap-4">
