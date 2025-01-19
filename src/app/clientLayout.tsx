@@ -11,7 +11,6 @@ export default function ClientLayout({
   children: React.ReactNode;
 }>) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [currentPath, setCurrentPath] = useState("");
 
   useEffect(() => {
@@ -32,16 +31,15 @@ export default function ClientLayout({
         setLoggedIn(true);
       } catch (error) {
         console.error("Error fetching user details:", error);
-      } finally {
-        setLoading(false);
       }
     }
 
     fetchUserDetails();
-  }, []);
+  }, [currentPath]);
 
   return (
     <>
+    <Navbar loggedIn={loggedIn} />
       <AnimatePresence mode="wait">
         <motion.div
           key={currentPath} // Use the current path as the key
@@ -50,11 +48,12 @@ export default function ClientLayout({
           exit={{ opacity: 0, x: -30 }}
           transition={{ duration: 0.5 }}
         >
-          <Navbar loggedIn={loggedIn} />
+          
           {children}
-          <Footer />
+         
         </motion.div>
       </AnimatePresence>
+      <Footer />
     </>
   );
 }

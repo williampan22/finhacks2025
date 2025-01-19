@@ -17,6 +17,7 @@ interface Reward {
 }
 
 interface Card {
+  imageLink: string | undefined;
   _id: string;
   bank: string;
   name: string;
@@ -211,8 +212,6 @@ export default function Page() {
       {isFirstLoad && (
         <div className="w-full max-w-4xl">
           <h1 className="text-4xl font-bold text-gray-600 mb-6">Dashboard</h1>
-
-          // Replace the Best Card Selector Section in your dashboard with this:
 
           {/* Best Card Selector Section */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-8">

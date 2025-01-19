@@ -31,7 +31,7 @@ const userLinks = (
     <li className="lock-focus">
       <Link href="/home">
         <button className="btn rounded-md hover:scale-105 active:scale-95 transition-transform duration-300">
-          <span>Home</span>
+          <span>Your Cards</span>
         </button>
       </Link>
     </li>
@@ -40,10 +40,10 @@ const userLinks = (
 
 const Navbar = ({loggedIn} : {loggedIn: boolean}) => {
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
+    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center z-10 relative">
       <div className="text-2xl font-bold">
         <Link href="/">
-          <img src="logo.png" alt="" className="w-12 inline-block mr-4" />
+          <img src="logo.png" alt="" className="w-20 inline-block mr-4" />
           High Card
         </Link>
       </div>
