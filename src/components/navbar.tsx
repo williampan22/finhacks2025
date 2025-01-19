@@ -40,7 +40,7 @@ const userLinks = (
 
 const Navbar = ({loggedIn} : {loggedIn: boolean}) => {
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center z-10 relative">
+    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center z-10 relative shadow-2xl">
       <div className="text-2xl font-bold">
         <Link href="/">
           <img src="logo.png" alt="" className="w-20 inline-block mr-4" />

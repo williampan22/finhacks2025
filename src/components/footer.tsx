@@ -10,8 +10,8 @@ const footer = () => {
             <span className="font-semibold text-blue-400">TypeScript</span>
           </p>
           <p className="text-sm">
-            By <a href="https://github.com/williampan22" className="font-semibold text-blue-400">William Pan</a> and{" "}
-            <a href="https://github.com/Bartavius" className="font-semibold text-blue-400">Jirath Lojanarungsiri</a>
+            By <a href="https://linkedin.com/in/williamlpan" className="font-semibold text-blue-400">William Pan</a> and{" "}
+            <a href="https://linkedin.com/in/jlojanarungsiri" className="font-semibold text-blue-400">Jirath Lojanarungsiri</a>
           </p>
         </div>
       </footer>
