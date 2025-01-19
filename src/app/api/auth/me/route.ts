@@ -32,7 +32,7 @@ export async function GET(request: Request) {
     delete user.password;
 
     return NextResponse.json({ user });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in /api/auth/me:", error.message);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   } finally {

@@ -3,10 +3,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import OrderCard from "@/components/orderCard";
+import Loading from "@/components/loading";
+import { motion } from "framer-motion"; // Import motion
 
 export default function Page() {
   const [creditCards, setCreditCards] = useState([]); // State to hold the fetched cards
   const [user, setUser] = useState<any>(null); // State to hold user details
+  const [showLoading, setShowLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -35,6 +38,7 @@ export default function Page() {
         }
         const cards = await response.json();
         setCreditCards(cards); // Update the state with the fetched cards
+        setShowLoading(false); // Set loading to false once data is fetched
       } catch (error: any) {
         console.error("Error fetching cards:", error.message);
       }
@@ -46,24 +50,34 @@ export default function Page() {
     }
 
     checkAuth();
+    
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <p className="text-4xl font-bold text-blue-600 mb-6 mt-5"> All Cards </p>
-      <div className="container mb-6 header-line">
-        <div className="w-full border border-gray-300"></div>
-      </div>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+      {showLoading ? (
+        <div className="flex justify-center items-center h-screen">
+          <Loading />
+        </div>
+      ) : (
+        <motion.div
+            initial={{ opacity: 0, x: 30 }} // Start from opacity 0, x: 30
+            animate={{ opacity: 1, x: 0 }}   // Fade in and slide to original position
+            exit={{ opacity: 0, x: -30, transition: { duration: 0.1 } }}    // Exit with custom transition time
+            transition={{ duration: 0.5 }}
+          >
+          <p className="text-4xl font-bold text-gray-600 mb-6 mt-5"> All Cards </p>
+          <div className="container mb-6 header-line">
+            <div className="w-full border border-gray-300"></div>
+          </div>
 
-      <div className="container space-y-4">
-        {creditCards.length > 0 ? (
-          creditCards.map((card, index) => (
-            <OrderCard key={index} card={card} />
-          ))
-        ) : (
-          <p className="text-gray-500">...Loading</p>
-        )}
-      </div>
+          <div className="container space-y-4">
+            {creditCards.map((card, index) => (
+              <OrderCard key={index} card={card} />
+            ))}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }

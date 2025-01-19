@@ -1,16 +1,19 @@
-import Link from "next/link";
-
+import Link from "next/link"; // Import Link from next/link
 
 const registrationLinks = (
   <>
-    <li>
-      <Link href="/login" className="hover:text-gray-300 transition-colors">
-        Login
+    <li className="lock-focus">
+      <Link href="/login">
+        <button className="btn rounded-md hover:scale-105 active:scale-95 transition-transform duration-300">
+          <span>Login</span>
+        </button>
       </Link>
     </li>
-    <li>
-      <Link href="/register" className="hover:text-gray-300 transition-colors">
-        Register
+    <li className="lock-focus">
+      <Link href="/register">
+        <button className="btn rounded-md hover:scale-105 active:scale-95 transition-transform duration-300">
+          <span>Register</span>
+        </button>
       </Link>
     </li>
   </>
@@ -18,43 +21,41 @@ const registrationLinks = (
 
 const userLinks = (
   <>
-   <li>
-      <Link href="/all-cards" className="hover:text-gray-300 transition-colors">
-        All Cards
+    <li className="lock-focus">
+      <Link href="/all-cards">
+        <button className="btn rounded-md hover:scale-105 active:scale-95 transition-transform duration-300">
+          <span>All Cards</span>
+        </button>
       </Link>
     </li>
-    <li>
-      <Link href="/home" className="hover:text-gray-300 transition-colors">
-        Home
+    <li className="lock-focus">
+      <Link href="/home">
+        <button className="btn rounded-md hover:scale-105 active:scale-95 transition-transform duration-300">
+          <span>Home</span>
+        </button>
       </Link>
     </li>
   </>
 );
 
-const Navbar = () => {
+const Navbar = ({loggedIn} : {loggedIn: boolean}) => {
   return (
-    <nav className="bg-blue-500 text-white p-4 flex justify-between items-center">
+    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
       <div className="text-2xl font-bold">
-        <a href="/">
+        <Link href="/">
           <img src="logo.png" alt="" className="w-12 inline-block mr-4" />
-         High Card
-        </a>
+          High Card
+        </Link>
       </div>
       <ul className="flex space-x-6">
-        <li>
-          <Link href="/about" className="hover:text-gray-300 transition-colors">
-            About
+        <li className="lock-focus">
+          <Link href="/about">
+            <button className="btn rounded-md hover:scale-105 active:scale-95 transition-transform duration-300">
+              <span> About </span>
+            </button>
           </Link>
         </li>
-        <li>
-          <Link
-            href="/contact"
-            className="hover:text-gray-300 transition-colors"
-          >
-            Contact
-          </Link>
-        </li>
-        {userLinks}{registrationLinks}
+        {loggedIn ? userLinks : registrationLinks}
       </ul>
     </nav>
   );

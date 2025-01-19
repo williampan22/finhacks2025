@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import OrderCard from "@/components/orderCard";
+import Loading from "@/components/loading";
 
 interface User {
   _id: string;  // Changed from id to _id to match MongoDB
@@ -64,6 +65,7 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
 
   useEffect(() => {
     async function fetchUserDetails() {
@@ -117,6 +119,13 @@ export default function Page() {
     }
 
     initializeData();
+    setIsFirstLoad(false);
+
+    const timer = setTimeout(() => {
+      setIsFirstLoad(true);
+    }, 100); 
+  
+    return () => clearTimeout(timer);
   }, [router]);
 
   const handleAddCard = async () => {
@@ -147,9 +156,9 @@ export default function Page() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-600">Loading...</p>
-      </div>
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+                <Loading />
+              </div>
     );
   }
 
@@ -163,13 +172,14 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <h1 className="text-4xl font-bold text-blue-600 mb-6">Dashboard</h1>
+      {isFirstLoad && <div>
+      <h1 className="text-4xl font-bold text-gray-600 mb-6">Dashboard</h1>
 
       <div className="w-full max-w-4xl mb-6">
         <div className="border-b border-gray-300" />
       </div>
 
-      <h2 className="text-4xl font-bold text-blue-600 mb-6">Your Cards</h2>
+      <h2 className="text-4xl font-bold text-gray-600 mb-6">Your Cards</h2>
 
       {userCards.length > 0 ? (
         <div className="w-full max-w-4xl space-y-4">
@@ -217,7 +227,8 @@ export default function Page() {
         >
           Add Card
         </button>
-      </div>
+      </div></div>
+              }
     </div>
   );
 }

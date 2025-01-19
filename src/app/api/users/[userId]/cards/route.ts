@@ -1,19 +1,19 @@
 // app/api/users/[userId]/cards/route.ts
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "";
 
 // GET user's cards
 export async function GET(
-  request: Request,
-  { params }: { params: { userId: string } }
+  request: NextRequest,
+  context: { params: Promise<{ userId: string }> }
 ) {
   let client;
 
   try {
-    // Wait for params
-    const { userId } = params;
+    // Await the params
+    const { userId } = await context.params;
 
     if (!userId) {
       return NextResponse.json(
@@ -69,16 +69,13 @@ export async function GET(
 
 // DELETE a card from user's cards
 export async function DELETE(
-  request: Request,
-  { params }: { params: { userId: string } }
+  request: NextRequest,
+  context: { params: Promise<{ userId: string }> }
 ) {
   let client;
 
   try {
-    // Wait for params
-    const { userId } = params;
-
-    // Get cardId from the request body
+    const { userId } = await context.params;
     const { cardId } = await request.json();
 
     if (!userId || !cardId) {
@@ -92,10 +89,13 @@ export async function DELETE(
     const db = client.db("test");
     const usersCollection = db.collection("users");
 
-    // Remove card from user's cards array
     const result = await usersCollection.updateOne(
       { _id: new ObjectId(userId) },
-      { $pull: { cards: new ObjectId(cardId) } }
+      {
+        $pull: {
+          cards: new ObjectId(cardId)
+        } as any
+      }
     );
 
     if (result.matchedCount === 0) {
@@ -125,16 +125,13 @@ export async function DELETE(
 
 // POST to add a card
 export async function POST(
-  request: Request,
-  { params }: { params: { userId: string } }
+  request: NextRequest,
+  context: { params: Promise<{ userId: string }> }
 ) {
   let client;
 
   try {
-    // Wait for params
-    const { userId } = params;
-
-    // Get cardId from the request body
+    const { userId } = await context.params;
     const { cardId } = await request.json();
 
     if (!userId || !cardId) {
@@ -161,10 +158,13 @@ export async function POST(
       );
     }
 
-    // Add card to user's cards array
     const result = await usersCollection.updateOne(
       { _id: new ObjectId(userId) },
-      { $addToSet: { cards: new ObjectId(cardId) } }
+      {
+        $addToSet: {
+          cards: new ObjectId(cardId)
+        } as any
+      }
     );
 
     if (result.matchedCount === 0) {
