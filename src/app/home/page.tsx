@@ -358,7 +358,7 @@ export default function Page() {
                     <OrderCard card={card} />
                     <button
                       onClick={() => handleRemoveCard(card._id)}
-                      className="ml-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                      className="btn-3d-remove ml-6 text-white rounded hover:bg-red-600 transition-colors"
                     >
                       Remove
                     </button>
@@ -390,7 +390,7 @@ export default function Page() {
             <button
               onClick={handleAddCard}
               disabled={!selectedCard}
-              className={`w-full py-2 px-4 rounded-lg text-white transition-colors ${
+              className={`btn-3d-add w-full py-2 px-4 rounded-lg text-white transition-colors ${
                 selectedCard ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-400 cursor-not-allowed"
               }`}
             >

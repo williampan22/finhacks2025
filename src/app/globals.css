@@ -20,6 +20,64 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* From Uiverse.io by absoluteSTrange */ 
+.btn-3d-add {
+  padding: 10px 27px;
+  border-radius: 10px;
+  border: 0;
+  background-color: #34b1eb;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: #3a80a1 0px 5px 0px 0px;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}
+
+.btn-3d-add:disabled {
+  background-color: #8b8c8c !important;
+  box-shadow: #626363 0px 5px 0px 0px !important;
+  cursor: not-allowed !important;
+}
+
+.btn-3d-add:hover {
+  box-shadow: #3a80a1 0px 3px 0px 0px;
+}
+
+.btn-3d-add:active {
+  background-color: #34b1eb;
+  /*50, 168, 80*/
+  box-shadow: #3a80a1 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+.btn-3d-remove {
+  padding: 10px 27px;
+  border-radius: 10px;
+  border: 0;
+  background-color: rgb(255, 56, 86);
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: rgb(201, 46, 70) 0px 5px 0px 0px;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}
+
+.btn-3d-remove:hover {
+  box-shadow: rgb(201, 46, 70) 0px 3px 0px 0px;
+}
+
+.btn-3d-remove:active {
+  background-color: rgb(255, 56, 86);
+  /*50, 168, 80*/
+  box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+
 /* From Uiverse.io by JkHuger */ 
 .card,
 .card__chip {
