@@ -18,6 +18,11 @@ const registrationLinks = (
 
 const userLinks = (
   <>
+   <li>
+      <Link href="/all-cards" className="hover:text-gray-300 transition-colors">
+        All Cards
+      </Link>
+    </li>
     <li>
       <Link href="/home" className="hover:text-gray-300 transition-colors">
         Home

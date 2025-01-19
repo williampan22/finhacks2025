@@ -4,46 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import OrderCard from "@/components/orderCard";
 
-async function addCardToUser(userId: string, cardId: string) {
-  try {
-    const response = await fetch("/api/users/add-card", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, cardId }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to add credit card");
-    }
-
-    const data = await response.json();
-    console.log(data.message);
-  } catch (error: any) {
-    console.error("Error:", error.message);
-  }
-}
-
-async function removeCardFromUser(userId: string, cardId: string) {
-  try {
-    const response = await fetch("/api/users/remove-card", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, cardId }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to remove card");
-    }
-
-    const data = await response.json();
-    console.log(data.message);
-  } catch (error: any) {
-    console.error("Error removing card:", error.message);
-  }
-}
-
 export default function Page() {
   const [creditCards, setCreditCards] = useState([]); // State to hold the fetched cards
   const [user, setUser] = useState<any>(null); // State to hold user details
@@ -89,15 +49,21 @@ export default function Page() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center ">
-      <p className="text-4xl font-bold text-blue-600 mb-6 mt-5">Dashboard</p>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+      <p className="text-4xl font-bold text-blue-600 mb-6 mt-5"> All Cards </p>
       <div className="container mb-6 header-line">
         <div className="w-full border border-gray-300"></div>
       </div>
-      <button className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-300">
-        {" "}
-        + Add Cards{" "}
-      </button>
+
+      <div className="container space-y-4">
+        {creditCards.length > 0 ? (
+          creditCards.map((card, index) => (
+            <OrderCard key={index} card={card} />
+          ))
+        ) : (
+          <p className="text-gray-500">...Loading</p>
+        )}
+      </div>
     </div>
   );
 }

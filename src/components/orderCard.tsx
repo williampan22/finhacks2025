@@ -1,7 +1,6 @@
 export default function creditCard({ card }: { card: any }) {
   return (
-    <div className="w-full rounded-2xl overflow-hidden shadow-lg bg-white">
-        <a href={card.link}>
+    <div className="w-full rounded-2xl overflow-hidden shadow-lg bg-white transition-all duration-500 transform hover:scale-105 hover:shadow-xl">
       <div className="card-logo mt-5 ml-5">
         <img
           className="w-40 rounded mx-auto inline-block"
@@ -36,8 +35,10 @@ export default function creditCard({ card }: { card: any }) {
           <span className="font-bold text-xl mb-2 text-gray-700"> Perks</span>
           <p className="text-lg text-gray-700">{card.perks}</p>
         </div>
+        <div className="mt-3">
+          <p className="text-lg text-gray-700"><span className="font-bold">Annual Fee:</span> ${card.annualFee}</p>
+        </div>
       </div>
-      </a>
     </div>
   );
 }
