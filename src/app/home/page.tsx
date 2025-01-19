@@ -6,9 +6,27 @@ import OrderCard from "@/components/orderCard";
 
 export default function Page() {
   const [creditCards, setCreditCards] = useState([]); // State to hold the fetched cards
+  const [user, setUser] = useState<any>(null); // State to hold user details
   const router = useRouter();
 
   useEffect(() => {
+    async function fetchUserDetails() {
+      try {
+        const response = await fetch("/api/auth/me", {
+          method: "GET",
+          credentials: "include", // Include cookies in the request
+        });
+        if (!response.ok) {
+          router.push("/login"); // Redirect to login if unauthorized
+          return;
+        }
+        const data = await response.json();
+        setUser(data.user); // Update state with user details
+      } catch (error: any) {
+        console.error("Error fetching user details:", error.message);
+      }
+    }
+
     async function fetchCards() {
       try {
         const response = await fetch("/api/cards");
@@ -23,12 +41,8 @@ export default function Page() {
     }
 
     async function checkAuth() {
-      const response = await fetch("/api/auth/me");
-      if (!response.ok) {
-        router.push("/login");
-      } else {
-        fetchCards(); // Fetch cards only after authentication
-      }
+      await fetchUserDetails(); // Fetch user details first
+      fetchCards(); // Fetch cards if authenticated
     }
 
     checkAuth();
@@ -36,7 +50,18 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <p className="text-4xl font-bold text-blue-600 mb-6">Home Page</p>
+      <p className="text-4xl font-bold text-blue-600 mb-6 mt-5">Dashboard</p>
+
+      {user ? (
+        <div className="mb-6 p-4 bg-white shadow rounded">
+          <h2 className="text-2xl font-semibold">Welcome, {user.firstName} {user.lastName}!</h2>
+          <p>Email: {user.email}</p>
+          <p>{JSON.stringify(user)}</p>
+        </div>
+      ) : (
+        <p>Loading user details...</p>
+      )}
+
       <div className="container space-y-4">
         {creditCards.length > 0 ? (
           creditCards.map((card, index) => (

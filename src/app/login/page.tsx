@@ -29,12 +29,12 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <Head>
-        <title>TravelPouch - Login</title>
+        <title>High Card - Login</title>
         <link rel="icon" href="/logo.png" />
       </Head>
 
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Login to TravelPouch</h1>
+        <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Login to High Card</h1>
         <form className="space-y-4" onSubmit={handleLogin}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>

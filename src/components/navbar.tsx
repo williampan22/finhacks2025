@@ -32,7 +32,7 @@ const Navbar = () => {
       <div className="text-2xl font-bold">
         <a href="/">
           <img src="logo.png" alt="" className="w-12 inline-block mr-4" />
-          Travel Pouch
+         High Card
         </a>
       </div>
       <ul className="flex space-x-6">

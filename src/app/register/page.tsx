@@ -34,12 +34,12 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <Head>
-        <title>TravelPouch - Register</title>
+        <title>High Card - Register</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Register for TravelPouch</h1>
+        <h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">Register for High Card</h1>
         <form className="space-y-4" onSubmit={handleRegister}>
           <div>
             <label htmlFor="firstName" className="block text-sm font-medium text-gray-600">First Name</label>

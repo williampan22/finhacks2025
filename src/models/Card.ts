@@ -13,6 +13,8 @@ const cardSchema = new mongoose.Schema(
       },
     ],
     perks: String,
+    link: String,
+    imageLink: String
   },
   { collection: "cards" }
 );
