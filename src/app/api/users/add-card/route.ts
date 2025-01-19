@@ -1,9 +1,12 @@
+// app/api/users/add-card/route.ts
 import { NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "";
 
 export async function POST(request: Request) {
+  let client;
+
   try {
     const { userId, cardId } = await request.json();
 
@@ -14,37 +17,50 @@ export async function POST(request: Request) {
       );
     }
 
-    const client = await MongoClient.connect(uri);
-    const db = client.db("test"); // Replace with your database name
-    const usersCollection = db.collection("users");
-    const cardsCollection = db.collection("cards");
+    client = await MongoClient.connect(uri);
+    const db = client.db("test");
 
-    // Check if the credit card exists in the cards collection
-    const cardExists = await cardsCollection.findOne({ _id: new ObjectId(cardId) });
+    // Convert string IDs to ObjectId
+    const userObjectId = new ObjectId(userId);
+    const cardObjectId = new ObjectId(cardId);
+
+    // Verify card exists
+    const cardExists = await db.collection("cards").findOne({
+      _id: cardObjectId
+    });
+
     if (!cardExists) {
-      await client.close();
-      return NextResponse.json({ error: "Credit card not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Card not found" },
+        { status: 404 }
+      );
     }
 
-    // Update the user's credit cards if the card is not already in the list
-    const result = await usersCollection.updateOne(
-      { _id: new ObjectId(userId) },
-      { $addToSet: { cards: new ObjectId(cardId) } } // `$addToSet` ensures no duplicates
+    // Add card to user's cards array
+    const result = await db.collection("users").updateOne(
+      { _id: userObjectId },
+      { $addToSet: { cards: cardObjectId } }
     );
-
-    await client.close();
 
     if (result.matchedCount === 0) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ message: "Credit card added successfully" });
+    return NextResponse.json({
+      message: "Card added successfully",
+      updated: result.modifiedCount > 0
+    });
+
   } catch (error) {
-    console.error("Error adding credit card:", error);
+    console.error("Error adding card:", error);
     return NextResponse.json(
-      { error: "Failed to add credit card to user" },
+      { error: "Failed to add card" },
       { status: 500 }
     );
+  } finally {
+    if (client) await client.close();
   }
 }
-

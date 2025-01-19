@@ -1,40 +1,60 @@
+// app/api/cards/route.ts
 import { NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "";
 
-export async function POST(request: Request) {
-  try {
-    const { email, id } = await request.json();
+// GET all cards
+export async function GET() {
+  let client;
 
-    if (!email && !id) {
+  try {
+    client = await MongoClient.connect(uri);
+    const db = client.db("test");
+    const cards = await db.collection("cards").find().toArray();
+
+    return NextResponse.json(cards);
+  } catch (error) {
+    console.error("Error fetching cards:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch cards" },
+      { status: 500 }
+    );
+  } finally {
+    if (client) await client.close();
+  }
+}
+
+// POST to fetch specific cards by IDs
+export async function POST(request: Request) {
+  let client;
+
+  try {
+    const { cardIds } = await request.json();
+
+    if (!cardIds || !Array.isArray(cardIds)) {
       return NextResponse.json(
-        { error: "Email or ID must be provided" },
+        { error: "Card IDs array must be provided" },
         { status: 400 }
       );
     }
 
-    const client = await MongoClient.connect(uri);
-    const coll = client.db("test").collection("users");
+    client = await MongoClient.connect(uri);
+    const db = client.db("test");
 
-    // Build the query based on provided email or ID
-    const query = email
-      ? { email }
-      : { _id: new ObjectId(id) }; // Use ObjectId for MongoDB `_id` field
+    const objectIds = cardIds.map(id => new ObjectId(id));
+    const cards = await db.collection("cards")
+      .find({ _id: { $in: objectIds } })
+      .toArray();
 
-    const user = await coll.findOne(query);
-    await client.close();
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    return NextResponse.json(user); // Return the user object as JSON
+    return NextResponse.json(cards);
   } catch (error) {
-    console.error("Error fetching user:", error);
+    console.error("Error fetching specific cards:", error);
     return NextResponse.json(
-      { error: "Failed to fetch user from database" },
+      { error: "Failed to fetch specific cards" },
       { status: 500 }
     );
+  } finally {
+    if (client) await client.close();
   }
 }
