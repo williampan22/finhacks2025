@@ -1,7 +1,9 @@
 # FinHacks 2025 Best Startup Potential Submission.
 
 ## What is FinHacks?
-FinHacks is a fintech-themed, 24 hours hackathon hosted by NEU Disrupt at Northeastern University with over $2000 in cash prizes.
+FinHacks is a fintech-themed, 24 hours hackathon hosted by NEU Disrupt at Northeastern University with over $2000 in cash prizes. Each projects were judged in a science-fair-style presentation, with the top 10 teams advancing to a second round of pitching. Each project is scored by judges from major financial banking companies, investment firms, ventures, and some are major hackathon winners.
+
+link: https://finhacks.org/
 
 ## Inspiration
 You're about to pay for something, whether for dining, groceries, travel, or etc. But wait? What credit card do you use to pay? Nowadays, there are hundreds of credit cards out there, each with different rewards, with some cards even having rotating reward categories that change every quarter. Some cards  reward you in pure cashback, while others reward you in points. But now, how much is a point worth in terms of money? Each bank, hotel, and airline's point are valued differently. For example, let's consider Hyatt vs Marriot. 1 Hyatt (hotel) point usually goes for 2.2 cents, with you being able to book a one night hotel stay for only 6.5k Hyatt points (equivalent to $108 stay) in Braintree. On the other hand, 1 Marriot point usually only goes for 0.9 cents, with one Marriot stay costing to about 35k Marriot points (equivalent to a $169 stay) in the same area, same time! When you compare how much money you end up saving by paying with Hyatt points instead of money compared to Marriot points, it's obvious that Hyatt points are much more important! **When you have multiple cards, it's hard to keep track of all these rotating categories, reward multipliers, reward categories, and different point values. If only there was a tool to just tell you what card to use for what purchase!**
